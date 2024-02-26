@@ -15,6 +15,13 @@
       "when": 1708020481400,
       "tag": "0001_friendly_bastion",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1708986374082,
+      "tag": "0002_curious_lord_hawal",
+      "breakpoints": true
     }
   ]
 }

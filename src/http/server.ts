@@ -2,9 +2,11 @@ import { Elysia, t } from 'elysia'
 import { restaurants, users } from '../db/schema'
 import { db } from '../db/connection'
 
-const app = new Elysia().post('/restaurants', async ({ body, set }) => {
-    const { restaurantName, managerName, email, phone } = body as any
-  
+const app = new Elysia().post(
+  '/restaurants',
+  async ({ body, set }) => {
+    const { restaurantName, managerName, email, phone } = body
+
     const [manager] = await db
       .insert(users)
       .values({
@@ -16,15 +18,15 @@ const app = new Elysia().post('/restaurants', async ({ body, set }) => {
       .returning({
         id: users.id,
       })
-  
+
     await db.insert(restaurants).values({
       name: restaurantName,
       managerId: manager.id,
     })
-  
+
     set.status = 204
   },
-  
+
   {
     body: t.Object({
       restaurantName: t.String(),
@@ -32,10 +34,9 @@ const app = new Elysia().post('/restaurants', async ({ body, set }) => {
       phone: t.String(),
       email: t.String({ format: 'email' }),
     }),
-  }
-
+  },
 )
-  
+
 app.listen(3333, () => {
   console.log('🔥 HTTP server running!')
 })
